@@ -5,7 +5,6 @@ matrix:
     - language: python
       python: 2.7
       env: CHECK=pylint
-      # command to install dependencies
       install:
         - "pip install --upgrade setuptools"
         - "pip install --upgrade pip"
@@ -18,7 +17,6 @@ matrix:
     - language: python
       python: 2.7
       env: CHECK=format
-      # command to install dependencies
       install:
         - "pip install --upgrade setuptools"
         - "pip install --upgrade pip"
@@ -26,12 +24,13 @@ matrix:
       script:
         - export PYTHONPATH=${PWD%/*}
         - ls $PYTHONPATH
-          if [[ "${TRAVIS_PULL_REQUEST}" != "false" ]];
+        - if [[ "${TRAVIS_PULL_REQUEST}" != "false" ]];
           then git remote add GH https://github.com/DIRACGrid/WebAppDIRAC.git; git fetch --no-tags GH ${TRAVIS_BRANCH}; git branch -vv; git diff -U0 GH/${TRAVIS_BRANCH} | pycodestyle --diff;
           fi
 
     - language: node_js
       node_js: 8.10.0
+      env: CHECK=ESLint
       before_install: npm install --global npm
       install:
         - npm install eslint --save-dev

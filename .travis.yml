@@ -30,11 +30,10 @@ matrix:
           then git remote add GH https://github.com/DIRACGrid/WebAppDIRAC.git; git fetch --no-tags GH ${TRAVIS_BRANCH}; git branch -vv; git diff -U0 GH/${TRAVIS_BRANCH} | pycodestyle --diff;
           fi
 
-
     - language: node_js
-      node_js: 7
-      env: CHECK=eslint
+      node_js: 8.10.0
+      before_install: npm install --global npm
       install:
-        - npm install eslint
+        - npm install eslint --save-dev
       script:
-        - eslint WebApp
+        - node_modules/.bin/eslint WebApp
